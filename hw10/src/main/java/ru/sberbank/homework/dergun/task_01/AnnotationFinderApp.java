@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class AnnotationFinderApp {
     private final static String PATH_PROTOTYPE = "Lru/sberbank/homework/common/annotation/Prototype;";
-    private final static String PATH_EXPERIMENTAL_FEATURE = "Lru/sberbank/homework/common/annotation/Prototype;";
+    private final static String PATH_EXPERIMENTAL_FEATURE = "Lru/sberbank/homework/common/annotation/ExperimentalFeature;";
     private final static String PATH = Paths.get("build", "classes", "main", "ru", "sberbank", "homework", "common", "entity").toAbsolutePath().toString();
 
     public static void main(String[] args) throws IOException {
@@ -24,6 +24,7 @@ public class AnnotationFinderApp {
             return;
         }
         for (final File file : files) {
+            System.out.println("file absolute path = " + file.getAbsolutePath());
             final ClassReader cr = new ClassReader(new FileInputStream(file.getAbsolutePath()));
             cr.accept(cn, 0);
             if (cn.invisibleAnnotations == null) {

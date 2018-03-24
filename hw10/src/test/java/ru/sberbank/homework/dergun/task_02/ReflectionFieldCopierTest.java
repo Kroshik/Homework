@@ -36,6 +36,14 @@ class Collect {
             this.mainColor = mapColor.get(index);
         }
     }
+
+    public Integer getCrash(Integer a) {
+        return 5;
+    }
+
+    public void setCrash(Integer a) {
+
+    }
 }
 
 class Collector {
@@ -74,6 +82,18 @@ class Collector {
     public void setMapColor(Integer integer) {
 
     }
+
+    public void setNothing() {
+
+    }
+
+    public Integer getCrash(Integer a) {
+        return 5;
+    }
+
+    public void setCrash(Integer a) {
+
+    }
 }
 
 public class ReflectionFieldCopierTest {
@@ -110,5 +130,6 @@ public class ReflectionFieldCopierTest {
         System.out.println(to.getMapColor());
 
     }
+
 
 }

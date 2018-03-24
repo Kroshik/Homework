@@ -17,10 +17,9 @@ public class ReflectionFieldCopier implements BeanFieldCopier {
                 if (map.get(contain) != null) {
                     mapTypeMethod = map.get(contain);
                 }
-                if (startWith.equals("get")) {
+                if (startWith.equals("get") && method.getParameterTypes().length == 0) {
                     mapTypeMethod.put(method.getReturnType().getName(), method);
-                }
-                else {
+                } else if (startWith.equals("set") && method.getParameterTypes().length == 1) {
                     mapTypeMethod.put(method.getParameterTypes()[0].getName(), method);
                 }
                 map.put(method.getName().replace(startWith, ""), mapTypeMethod);
@@ -40,14 +39,14 @@ public class ReflectionFieldCopier implements BeanFieldCopier {
             mapMethodsFrom.get(key).keySet().stream()
                     .filter(type -> mapMethodsTo.get(key) != null && mapMethodsTo.get(key).get(type) != null)
                     .forEach(type -> {
-                Method methodFrom = mapMethodsFrom.get(key).get(type);
-                Method methodTo = mapMethodsTo.get(key).get(type);
-                try {
-                    methodTo.invoke(to, methodFrom.invoke(from));
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            });
+                        Method methodFrom = mapMethodsFrom.get(key).get(type);
+                        Method methodTo = mapMethodsTo.get(key).get(type);
+                        try {
+                                methodTo.invoke(to, methodFrom.invoke(from));
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    });
         }
     }
 }
